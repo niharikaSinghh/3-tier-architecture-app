@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  EC2 • Nginx • React • Node.js • Application Load Balancer • Auto Scaling • Aurora/MySQL
+  React • Node.js • Nginx • Amazon EC2 • Application Load Balancer • Auto Scaling • Aurora/MySQL
 </p>
 
 <p align="center">
@@ -17,103 +17,79 @@
 [![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://nginx.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
 
 </p>
 
 <p align="center">
 
-[![GitHub](https://img.shields.io/badge/GITHUB-REPOSITORY-181717?style=for-the-badge&logo=github)](https://github.com/niharikaSinghh/3-tier-architecture-app)
-[![GitHub](https://img.shields.io/badge/GITHUB-PROFILE-181717?style=for-the-badge&logo=github)](https://github.com/niharikaSinghh)
+[![Repository](https://img.shields.io/badge/GITHUB-REPOSITORY-181717?style=for-the-badge&logo=github)](https://github.com/niharikaSinghh/3-tier-architecture-app)
+
+[![Profile](https://img.shields.io/badge/GITHUB-PROFILE-181717?style=for-the-badge&logo=github)](https://github.com/niharikaSinghh)
 
 </p>
 
 ---
 
-# 📌 Project Overview
+# 📑 Table of Contents
 
-The **AWS 3-Tier Web Application** is a full-stack application designed and deployed using a layered cloud architecture on AWS.
-
-The project separates the application into three independent layers:
-
-- 🌐 **Web Tier** — React frontend served using Nginx
-- ⚙️ **Application Tier** — Node.js / Express backend
-- 🗄️ **Database Tier** — Amazon Aurora / MySQL-compatible database
-
-This architecture demonstrates how a traditional full-stack application can be transformed into a **scalable, maintainable, and production-style cloud deployment**.
-
-The application provides a simple transaction-management interface where users can:
-
-- ➕ Add transactions
-- 👀 View transactions
-- 🗑️ Delete transactions
-
----
-
-# 🎯 Project Objectives
-
-The main objectives of this project are:
-
-- Understand AWS 3-Tier Architecture
-- Deploy a React frontend on Amazon EC2
-- Configure Nginx as a web server
-- Deploy a Node.js / Express backend
-- Configure an Application Load Balancer
-- Understand EC2 Auto Scaling
-- Connect the backend with Aurora / MySQL
-- Implement separation between application layers
-- Understand cloud networking and security concepts
-- Build a scalable full-stack cloud application
+- [🎯 Overview](#-overview)
+- [📊 Architecture](#-architecture)
+- [⚡ Application Flow](#-application-flow)
+- [☁️ AWS Services](#️-aws-services)
+- [🌐 Web Tier](#-web-tier)
+- [⚙️ Application Tier](#️-application-tier)
+- [🗄️ Database Tier](#️-database-tier)
+- [🔐 Security & Networking](#-security--networking)
+- [📈 Scalability & Availability](#-scalability--availability)
+- [🚀 Application Features](#-application-features)
+- [🧰 Tech Stack](#-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [🔄 Deployment Workflow](#-deployment-workflow)
+- [🧠 Key Engineering Concepts](#-key-engineering-concepts)
+- [📚 What I Learned](#-what-i-learned)
+- [🚀 Future Improvements](#-future-improvements)
+- [⚡ Quick Start](#-quick-start)
+- [👩‍💻 Author](#-author)
 
 ---
 
-# 🏗️ System Architecture
+# 🎯 Overview
 
-The application follows a standard three-tier architecture.
+The **AWS 3-Tier Web Application** is a full-stack cloud project designed to demonstrate how a traditional web application can be deployed using a **layered AWS architecture**.
+
+Instead of placing the frontend, backend, and database on a single server, the application separates them into independent tiers.
 
 ```text
-                              🌐 INTERNET
-                                   |
-                                   |
-                                   v
-                         +-------------------+
-                         |     WEB TIER      |
-                         |                   |
-                         |    Amazon EC2     |
-                         |       Nginx       |
-                         |  React Frontend   |
-                         +---------+---------+
-                                   |
-                                   |
-                              HTTP / API
-                                   |
-                                   v
-                         +-------------------+
-                         | APPLICATION TIER  |
-                         |                   |
-                         | Application Load  |
-                         |     Balancer      |
-                         |         |         |
-                         |    Auto Scaling   |
-                         |         |         |
-                         |   +-----+-----+   |
-                         |   |           |   |
-                         |   v           v   |
-                         |  EC2         EC2  |
-                         | Node.js     Node.js|
-                         | Express     Express|
-                         +---------+---------+
-                                   |
-                                   |
-                                  SQL
-                                   |
-                                   v
-                         +-------------------+
-                         |   DATABASE TIER   |
-                         |                   |
-                         | Amazon Aurora /   |
-                         |      MySQL        |
-                         |                   |
-                         | Persistent Data   |
-                         +-------------------+
+                         🌐 INTERNET
+                              |
+                              v
+                    ┌───────────────────┐
+                    │      WEB TIER     │
+                    │                   │
+                    │    Amazon EC2     │
+                    │      Nginx        │
+                    │  React Frontend   │
+                    └─────────┬─────────┘
+                              |
+                              | HTTP / API
+                              v
+                    ┌───────────────────┐
+                    │ APPLICATION TIER  │
+                    │                   │
+                    │ Application Load  │
+                    │     Balancer      │
+                    │         |         │
+                    │      Node.js      │
+                    │      Express      │
+                    └─────────┬─────────┘
+                              |
+                              | SQL
+                              v
+                    ┌───────────────────┐
+                    │    DATABASE TIER  │
+                    │                   │
+                    │ Aurora / MySQL    │
+                    │                   │
+                    │ Persistent Data   │
+                    └───────────────────┘
